@@ -1,0 +1,52 @@
+import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'iChat-App';
+  items: Observable<any>;
+  constructor(db: AngularFirestore) {
+    this.items = db.collection('/users').valueChanges();
+  }
+ // items: Observable<any[]>;
+  //constructor(db: AngularFireDatabase) {
+    //this.items = db.list('chats').valueChanges();
+    //this.item = db.object('chats').valueChanges();
+ //   this.item = db.object('chats').valueChanges();
+ //   const promise = db.object('chats').remove();
+//promise
+//  .then(_ => console.log('success'))
+//  .catch(err => console.log(err, 'You dont have access!'));
+//  }
+
+  
+  
+}
+
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AppComponent } from './app.component';
+import { AngularFireModule } from '@angular/fire'
+import { environment } from '../environments/environment';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireDatabase } from '@angular/fire/database';
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+  ],
+  providers: [AngularFirestore,AngularFireDatabase],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
